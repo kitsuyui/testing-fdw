@@ -1,0 +1,20 @@
+mysql:
+  container_name: mysql_fdw_test
+  image: mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: mysqlpassword
+
+redis:
+  container_name: redis_fdw_test
+  image: redis:latest
+
+postgres:
+  container_name: postgres_fdw_test
+  image: fdwpostgres
+  volumes_from:
+    - fdw_data
+  ports:
+    - "5432:5432"
+  links:
+    - mysql
+    - redis
